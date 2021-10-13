@@ -11,6 +11,8 @@ This contract implements simple counter backed by storage on blockchain.
 But with usage of your tokens.
 Contract in `contract/src/lib.rs` provides methods to increment / decrement counter and get it's current value or reset.
 When you increment - you give yours tokens to contract. When you decrement - some tokens are transferred to you. 
+UPDT: It also checks if someone have already taken Token so it won`t give it more then once for one account.
+Also it`s now impossible to decrement counter below zero. 
 
 
 Plus and minus buttons increase and decrease value correspondingly. When button L is toggled, a little light turns on, just for fun. RS button is for reset. LE and RE buttons to let the robot wink at you.
