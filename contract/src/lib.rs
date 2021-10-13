@@ -15,9 +15,6 @@ near_sdk::setup_alloc!();
 
 const MIN_DEPOSIT: u128 = 1_000_000_000_000_000_000_000_000;
 
-// let moneyback : u128;
-// Promise::new(env::predecessor_account_id()).transfer(moneyback);
-
 // add the following attributes to prepare your code for serialization and invocation on the blockchain
 // More built-in Rust attributes here: https://doc.rust-lang.org/reference/attributes.html#built-in-attributes-index
 #[near_bindgen]
@@ -25,6 +22,7 @@ const MIN_DEPOSIT: u128 = 1_000_000_000_000_000_000_000_000;
 pub struct Counter {
     // See more data types at https://doc.rust-lang.org/book/ch03-02-data-types.html
     val: i8, // i8 is signed. unsigned integers are also available: u8, u16, u32, u64, u128
+    users: Vec<String>
 }
 
 #[near_bindgen]
@@ -42,6 +40,10 @@ impl Counter {
     /// ```
     pub fn get_num(&self) -> i8 {
         return self.val;
+    }
+
+    pub fn get_users(&self) -> Vec<String> {
+        return self.users.clone();
     }
 
     /// Increment the counter.
@@ -84,16 +86,27 @@ impl Counter {
         // real smart contracts will want to have safety checks
         // e.g. self.val = i8::wrapping_sub(self.val, 1);
         // https://doc.rust-lang.org/std/primitive.i8.html#method.wrapping_sub
-        
-        assert!(self.val > 0, "Sorry, it`s empty");
-        self.val -= 1;
-        
-        Promise::new(env::predecessor_account_id()).transfer(MIN_DEPOSIT);
+        let current_user = env::predecessor_account_id().to_string();
+        // let current_user = env::predecessor_account_id();
+        env::log(&[!self.users.clone().contains(&current_user) as u8]);
+        env::log(current_user.as_bytes());
 
-        let log_message = format!("Decreased number to {}", self.val);
+        // val allowed = true;
+        if self.val <= 0{
+            reset()
+        } else if !self.users.clone().contains(&current_user){
+
+        // assert!(!self.users.contains(&current_user), "Sorry, you have already taken your Token");
+        self.val -= 1;
+
+        Promise::new(env::predecessor_account_id()).transfer(MIN_DEPOSIT);
+        self.users.push(env::predecessor_account_id());
+
+        let log_message = format!("DDecreased number to {}", self.val);
 
         env::log(log_message.as_bytes());
         after_counter_change();
+        }
     }
 
     /// Reset to zero.
