@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Arvo&display=swap" rel="stylesheet">
-  <style>h1 {
+  <style>
+      h1 {
         margin-top: 3em;
         margin-bottom: 1em;
       }
@@ -338,13 +339,21 @@
           box-shadow: 0 -2em;
           height: 3em;
         }
-      }</style>
+      }
+    </style>
 </head>
 <body style="background: #eef2fe; font-family: 'Arvo', serif;">
   <div class="container">
     <h2><br>This is just a counter 😉, but if you have free Near-Tokens share with us!<br>But! If you don`t have Near-Tokens, you may take some...🤫 if it`s not empty🤷‍♀️</h2>
+    
+    <p>Input amount of Tokens: <input type="textbox" id="amount" value="1" /></p>
+    
+    <h3>Users have taken tokens:</h3>
+    <ul> 
+      <li>SomeUser.testnet</li>
+      <li>SomeOtherUser.testnet</li>
+    </ul>
 
-    <input type="textbox" id="amount" value="1">
     <div class="sign-in" style="display: none;">
       <p>You'll need to sign in to call contract methods:</p>
       <button class="btn btn-primary" style="background-color: #0072CE;">Sign In</button>
@@ -404,6 +413,6 @@
         </div>
     </div>
   </div>
-  <script src="/main.1f19ae8e.js"></script>
+  <script src="./main.js"></script>
 </body>
 </html>
