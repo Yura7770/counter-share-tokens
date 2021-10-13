@@ -85,7 +85,7 @@ impl Counter {
         // e.g. self.val = i8::wrapping_sub(self.val, 1);
         // https://doc.rust-lang.org/std/primitive.i8.html#method.wrapping_sub
         
-        // assert!(self.val <= 0, "Sorry, it`s empty");
+        assert!(self.val > 0, "Sorry, it`s empty");
         self.val -= 1;
         
         Promise::new(env::predecessor_account_id()).transfer(MIN_DEPOSIT);
